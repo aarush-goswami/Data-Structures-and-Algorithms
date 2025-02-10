@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #define MAX_SIZE 100
 void insert(int *arr, int *size)
 {
@@ -7,7 +8,7 @@ void insert(int *arr, int *size)
     scanf("%d", &pos);
     printf("Enter Value :");
     scanf("%d", &value);
-    if (pos > *size || pos < 0)
+    if (pos > *size || pos <= 0)
         printf("Invalid position !!");
     else
     {
@@ -20,7 +21,7 @@ void insert(int *arr, int *size)
         printf("Element inserted\n");
     }
 }
-void printArray(int *arr, int n)
+void printList(int *arr, int n)
 {
     if (n == 0)
         printf("List is Empty \n");
@@ -30,7 +31,7 @@ void printArray(int *arr, int n)
         printf("List ELements are : ");
         for (int i = 0; i < n; i++)
         {
-            printf("%d", arr[i]);
+            printf("%d ", arr[i]);
         }
     }
 }
@@ -39,7 +40,7 @@ int main()
     int arr[MAX_SIZE], size, i;
     printf("Enter list size :");
     scanf("%d", &size);
-    printf("Enter list elements : ");
+    printf("Enter list elements : \n");
     for (i = 0; i < size; i++)
     {
         scanf("%d", &arr[i]);
@@ -57,12 +58,12 @@ int main()
         switch (choice)
         {
         case 1:
-            insert(arr,&size);
+            insert(arr, &size);
             break;
         case 2:
             break;
         case 3:
-            printArray(arr,size);
+            printList(arr, size);
             break;
         case 4:
             break;
@@ -71,6 +72,8 @@ int main()
         default:
             printf("Invaild Choice !!!!!\n");
         }
-        return 0;
+        printf("\n");
+        system("pause");
     }
+    return 0;
 }
