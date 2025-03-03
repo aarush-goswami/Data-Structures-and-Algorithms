@@ -13,3 +13,27 @@ int* finalPrices(int* prices, int pricesSize, int* returnSize) {
 return prices;
 
 }
+
+
+
+
+// using 2nd array
+int* finalPrices(int* prices, int pricesSize, int* returnSize) {
+   int i,j;
+    int *arr=(int*)malloc(pricesSize*sizeof(int));
+         for(i=0;i<pricesSize;i++){
+             int flag=0;
+              for(j=i+1;j<pricesSize;j++){
+               if(prices[j]<=prices[i])
+               {
+                 arr[i]=prices[i]-prices[j];
+                 flag=1;
+                break;
+               }  
+    }
+    if(flag==0)
+    arr[i]=prices[i];
+}
+*returnSize=pricesSize;
+return arr;
+}
