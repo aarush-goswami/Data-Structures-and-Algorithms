@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+#define MAX 100
+int main() {
+    int stack[MAX],top=-1,val;
+    for(int i=0;i<3;i++){
+        scanf("%d",&val);
+        top++;
+        stack[top]=val;
+    }
+    top--;
+    for(int i=0;i<2;i++){
+        scanf("%d",&val);
+        top++;
+        stack[top]=val;
+    }
+    top--;top--;top--;
+    for(int i=top;i>=0;i--){
+printf("%d ",stack[i]);
+    }
+    return 0;
+}
