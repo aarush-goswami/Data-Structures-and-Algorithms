@@ -1,0 +1,13 @@
+char* removeDuplicates(char* s) {
+    
+  int i,top=-1,len=strlen(s);
+  char* stack =(char*)malloc(len+1);
+  for(i=0;i<len;i++){
+    if(top==-1 || s[i]!=stack[top])
+        stack[++top]=s[i];
+    else 
+    top--;
+  }
+  stack[top+1]='\0';
+  return stack;
+}
