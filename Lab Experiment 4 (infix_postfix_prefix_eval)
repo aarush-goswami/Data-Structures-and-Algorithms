@@ -35,7 +35,7 @@ int precedence(char opr)
     switch (opr)
     {
     case '+': 
-    case '-':
+    case '-':  //used fallthrough
         return 1;
     case '*':
     case '/':
@@ -43,7 +43,7 @@ int precedence(char opr)
     case '^':
         return 3;
     default:
-        return -1;
+        return -1; //for brackets & space
     }
 }
 int Infix_Evaluation(char *str)
