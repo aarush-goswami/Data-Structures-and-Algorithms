@@ -1,0 +1,103 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX 100
+typedef struct PriorityQueue
+{
+    int element;
+    int priority;
+} PQueue;
+PQueue pq[MAX];
+int front = -1, rear = -1;
+int isEmpty()
+{
+    return (front == -1) ? 1 : 0;
+}
+int isFull()
+{
+    return (rear == MAX - 1) ? 1 : 0;
+}
+void Enqueue(int data, int priority)
+{
+
+    rear++;
+    pq[rear].element = data;
+    pq[rear].priority = priority;
+    printf("ELement Inserted !!\n");
+    if (front == -1)
+        front = rear;
+}
+int getHigherPriorityElement()
+{
+    int max = 0, index = -1;
+    for (int i = front; i <= rear; i++)
+        if (pq[i].priority > max)
+        {
+            max = pq[i].element;
+            index = i;
+        }
+    return index;
+}
+void dequeue()
+{
+}
+int peek()
+{
+    int i = getHigherPriorityElement();
+    return pq[i].element;
+}
+void printall()
+{
+    for (int i = front; i <= rear; i++)
+        printf("element : %d\tpriority: %d\n", pq[i].element, pq[i].priority);
+}
+void frontrear()
+{
+    printf("f %d r %d\n", front, rear);
+}
+int main()
+{
+    while (1)
+    {
+        int choice, data, priority;
+        printf("Enter choice : \n1.Enqueue\n2.Dequeue\n3.Peek\n4.Exit\n5.Show all\n");
+        scanf("%d", &choice);
+        switch (choice)
+        {
+        case 1:
+            if (isFull())
+                printf("Queue Overflow \n");
+            else
+                printf("Enter data to enqueue : ");
+            scanf("%d", &data);
+            printf("Enter priority of data : ");
+            scanf("%d", &priority);
+            Enqueue(data, priority);
+            break;
+        case 2:
+            if (isEmpty())
+                printf("Queue Underflow \n");
+            else
+                dequeue();
+            break;
+        case 3:
+            if (isEmpty())
+                printf("Empty \n");
+            else
+                printf("%d", peek());
+            peek();
+            break;
+        case 4:
+            exit(0);
+            break;
+        case 5:
+            printall();
+            break;
+        case 6:
+            frontrear();
+            break;
+        default:
+            printf("Invalid choice !!!\n");
+        }
+    }
+    return 0;
+}
