@@ -47,12 +47,13 @@ int dequeue()
         front++;
     else if (index == rear)
         rear--;
-    else
+    else{
         for (int i = index; i < rear; i++)
         {
             pq[i] = pq[i + 1];
         }
     rear--;
+    }
     return data;
 }
 int peek()
