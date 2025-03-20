@@ -3,8 +3,33 @@
 typedef struct node
 {
     int data;
-    struct Node *next;
-};
+    struct node *next;
+} Node;
+Node *head = NULL;
+void insertNodeInBeg(int ele)
+{
+    Node *newNode = (Node *)malloc(sizeof(Node));
+    newNode->data = ele;
+    newNode->next = NULL;
+    newNode->next = head;
+    head = newNode;
+    printf("Node Inserted \n");
+}
+void display()
+{
+    if (head == NULL)
+        printf("List is Empty \n");
+    else
+    {
+        printf("Elements are : \n");
+        Node *temp = head;
+        while (temp != NULL)
+        {
+            printf("%d \t", temp->data);
+            temp = temp->next;
+        }
+    }
+}
 int main()
 {
     while (1)
@@ -20,12 +45,15 @@ int main()
         printf("8. Sort Elements \n");
         printf("9. Display List \n");
         printf("10. Exit\n\n");
-        int choice;
+        int choice,value;
         printf("Enter Choice :");
         scanf("%d, &choice");
         switch (choice)
         {
         case 1:
+            printf("Enter value : ");
+            scanf("%d", &value);
+            insertNodeInBeg(value);
             break;
         case 2:
             break;
@@ -42,9 +70,11 @@ int main()
         case 8:
             break;
         case 9:
+            display();
             break;
         case 10:
             break;
         }
     }
+    return 0;
 }
