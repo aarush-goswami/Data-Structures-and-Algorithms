@@ -1,0 +1,149 @@
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct Node
+{
+    struct Node *prev;
+    int data;
+    struct Node *next;
+} Node;
+Node *head = NULL;
+Node *prev = NULL;
+Node *createNode(int ele)
+{
+    Node *newNode = (Node *)malloc(sizeof(Node));
+    newNode->prev = NULL;
+    newNode->data = ele;
+    newNode->next = NULL;
+    return newNode;
+}
+void insertNodeatBeg(int ele)
+{
+    Node *newNode = createNode(ele);
+    if (head == NULL)
+    {
+        head = newNode;
+    }
+    else
+    {
+        newNode->next = head;
+        head->prev = newNode;
+        head = newNode;
+    }
+    printf("Node inserted \n");
+}
+void insertNodeatEnd(int ele)
+{
+    Node *newNode = createNode(ele);
+    if (head == NULL)
+    {
+        head = newNode;
+    }
+    else
+    {
+        Node *temp = head;
+        while (temp->next != NULL)
+        {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+        newNode->prev = temp;
+        newNode->next = NULL;
+    }
+    printf("Node Inserted !!\n");
+}
+void display()
+{
+    if (head == NULL)
+        printf("List Empty \n");
+    else
+    {
+        Node *temp = head;
+        while (temp != NULL)
+        {
+            printf("%d ", temp->data);
+            temp = temp->next;
+        }
+    }
+}
+void insertNodeatPos(int pos, int ele)
+{
+    if (pos == 1)
+    {
+        insertNodeatBeg(ele);
+    }
+    else if (head == NULL)
+    {
+        printf("List Empty \n");
+    }
+    else
+    {
+        Node *newNode = createNode(ele);
+        int i = 1;
+        Node *temp = head;
+        while (i < pos && temp != NULL)
+        {
+            temp = temp->next;
+            i++;
+        }
+        if (temp != NULL && pos > 0)
+        {
+            newNode->prev = temp->prev;
+            newNode->next = temp;
+            temp->prev->next = newNode;
+            temp->prev = newNode;
+            printf("Node Inserted \n");
+        }
+        else
+            printf("Invalid Posititon !!\n");
+    }
+}
+int main()
+{
+    while (1)
+    {
+        int choice, ele, pos;
+        printf(".......Doubly Linked List .......\n");
+        printf("Enter choice : \n");
+        printf("1.Insert Node at Begining\n2.Insert Node at End\n3.Insert Node at any position\n4.Delete Node from Begining\n5.Delete from End\n8.sort\n9.Display\n10.Exit\n");
+        scanf("%d", &choice);
+        switch (choice)
+        {
+        case 1:
+            printf("Enter data : ");
+            scanf("%d", &ele);
+            insertNodeatBeg(ele);
+            break;
+        case 2:
+            printf("Enter element : ");
+            scanf("%d", &ele);
+            insertNodeatEnd(ele);
+            break;
+        case 3:
+            printf("Enter position : ");
+            scanf("%d", &pos);
+            printf("Enter element : ");
+            scanf("%d", &ele);
+            insertNodeatPos(pos, ele);
+            break;
+        case 4:
+            /* deleteFromBegining();
+             break;*/
+        case 5:
+            //  deleteFromEnd();
+            break;
+        case 8:
+            // sort();
+            break;
+        case 9:
+            display();
+            break;
+        case 10:
+            exit(0);
+            break;
+        default:
+            printf("Invalid choice !!\n");
+        }
+        printf("\n");
+    }
+    return 0;
+}
