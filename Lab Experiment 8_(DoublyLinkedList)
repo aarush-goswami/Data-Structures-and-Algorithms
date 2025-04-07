@@ -96,18 +96,12 @@ void deleteNodeFromBegining()
 {
     if (head == NULL)
         printf("List Empty !!\n");
-    else if (head->next == NULL)
-    {
-        head = NULL;
-        printf("Node Deleted successfully \n");
-    }
     else
     {
-        Node *temp = head;
-        Node *t = temp;
-        temp->next->prev = NULL;
-        temp = temp->next;
-        head = temp;
+        Node *t = head;
+        head = head->next;
+        if (head != NULL)
+            head->prev = NULL;
         free(t);
         printf("Node Deleted Successfully \n");
     }
@@ -116,11 +110,6 @@ void deleteNodeFromEnd()
 {
     if (head == NULL)
         printf("List Empty \n");
-    else if (head->next == NULL)
-    {
-        head = NULL;
-        printf("Node Deleted successfully \n");
-    }
     else
     {
         Node *temp = head;
@@ -129,8 +118,10 @@ void deleteNodeFromEnd()
             temp = temp->next;
         }
         Node *t = temp;
-        temp->prev->next = NULL;
-        free(t);
+        if (temp->prev != NULL)
+            temp->prev->next = NULL;
+        else
+            head = NULL;
         printf("Node Deleted Successfully \n");
     }
 }
@@ -144,15 +135,43 @@ void deleteNodeFromPos(int pos)
     {
         Node *temp = head;
         int i = 1;
-        while (i < pos && temp->next->next != NULL)
+        while (i != pos && temp != NULL)
         {
-            temp=temp->next;
+            i++;
+            temp = temp->next;
+        }
+        if (temp != NULL)
+        {
+            temp->prev->next = temp->next;
+            if (temp->next != NULL)
+                temp->next->prev = temp->prev;
+            free(temp);
+            printf("Node Deleted Successfully \n");
+        }
+        else
+            printf("Invalid Position !!!\n");
+    }
+}
+void search(int tar)
+{
+    if (head == NULL)
+        printf("List Empty \n");
+    else
+    {
+        Node *temp = head;
+        int i = 1, flag = 0;
+        while (temp != NULL)
+        {
+            if (temp->data == tar)
+            {
+                printf("Element Found at pos : %d \n", i);
+                flag = 1;
+            }
+            temp = temp->next;
             i++;
         }
-        if(i>0 && temp->next->next!=NULL){
-            Node*t=temp;
-            
-        }
+        if (!flag)
+            printf("Not Found !!\n");
     }
 }
 int main()
@@ -162,7 +181,7 @@ int main()
         int choice, ele, pos;
         printf(".......Doubly Linked List .......\n");
         printf("Enter choice : \n");
-        printf("1.Insert Node at Begining\n2.Insert Node at End\n3.Insert Node at any position\n4.Delete Node from Begining\n5.Delete from End\n6.Delete Node From Any Position\n8.sort\n9.Display\n10.Exit\n");
+        printf("1.Insert Node at Begining\n2.Insert Node at End\n3.Insert Node at any position\n4.Delete Node from Begining\n5.Delete from End\n6.Delete Node From Any Position\n7.Search ELement \n8.sort\n9.Display\n10.Exit\n");
         scanf("%d", &choice);
         switch (choice)
         {
@@ -193,6 +212,11 @@ int main()
             printf("Enter Position : ");
             scanf("%d", &pos);
             deleteNodeFromPos(pos);
+            break;
+        case 7:
+            printf("Enter element to search : ");
+            scanf("%d", &ele);
+            search(ele);
             break;
         case 8:
             // sort();
