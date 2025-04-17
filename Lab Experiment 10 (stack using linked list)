@@ -33,10 +33,15 @@ void pop()
 }
 int peek()
 {
-    if(top==NULL)
-     printf("stack empty \n");
+    if (top == NULL)
+    {
+        printf("Stack Empty \n");
+        return -1;
+    }
     else
-    return top->data;
+    {
+        return top->data;
+    }
 }
 void display()
 {
@@ -71,7 +76,8 @@ int main()
             pop();
             break;
         case 3:
-            printf("topmost element : %d", peek());
+        if(peek()!=-1)
+            printf("Topmost Element : %d", peek());
             break;
         case 4:
             display();
