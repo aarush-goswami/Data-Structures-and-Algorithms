@@ -1,0 +1,89 @@
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct Node
+{
+    int data;
+    struct Node *next;
+} Node;
+Node *top = NULL;
+void push(int ele)
+{
+    Node *temp = (Node *)malloc(sizeof(Node));
+    if (temp == NULL)
+        printf("stack overflow \n");
+    else
+    {
+        temp->data = ele;
+        temp->next = top;
+        top = temp;
+        printf("Push Successful \n");
+    }
+}
+void pop()
+{
+    if (top == NULL)
+        printf("Stack Underflow \n");
+    else
+    {
+        Node *t = top;
+        top = top->next;
+        printf("%d Pop Successful \n", t->data);
+        free(t);
+    }
+}
+int peek()
+{
+    if(top==NULL)
+     printf("stack empty \n");
+    else
+    return top->data;
+}
+void display()
+{
+    if (top == NULL)
+        printf("List Empty \n");
+    else
+    {
+        printf("Elements are : ");
+        Node *temp = top;
+        while (temp != NULL)
+        {
+            printf("%d ", temp->data);
+            temp = temp->next;
+        }
+    }
+}
+int main()
+{
+    while (1)
+    {
+        printf("1.Push\n2.Pop\n3.Peek\n4.Show\n5.Exit\nEnter choice : ");
+        int choice, ele;
+        scanf("%d", &choice);
+        switch (choice)
+        {
+        case 1:
+            printf("Enter data : ");
+            scanf("%d", &ele);
+            push(ele);
+            break;
+        case 2:
+            pop();
+            break;
+        case 3:
+            printf("topmost element : %d", peek());
+            break;
+        case 4:
+            display();
+            break;
+        case 5:
+            exit(0);
+            break;
+        default:
+            ("Printf Invalid Choice !!!\n");
+        }
+        printf("\n");
+        system("pause");
+    }
+    return 0;
+}
